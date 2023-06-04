@@ -28,6 +28,7 @@ function onSubmit(e){
         email,
         phone
     };
+
     axios.post("https://crudcrud.com/api/1c84437135964379bb7f1f19a648b974/appointmentData", obj)
         .then((response) => {
             showOnScreen(response.data)
@@ -36,13 +37,36 @@ function onSubmit(e){
         .catch((error) => {
             console.log(error);
         })
-    // localStorage.setItem(obj.email, JSON.stringify(obj));
-    // showOnScreen(obj);
+    
+    localStorage.setItem(obj.email, JSON.stringify(obj));
 
+    
     nameInput.value = '';
     emailInput.value = '';
     phoneInput.value = '';
 }
+
+window.addEventListener("DOMContentLoaded", () => {
+    axios.get("https://crudcrud.com/api/1c84437135964379bb7f1f19a648b974/appointmentData")
+    .then((response) => {
+    for(let i =0; i < response.data.length; i++) {
+        showOnScreen(response.data[i]);
+    }
+        console.log(response)
+    })
+    .catch((error) => {
+        console.log(error);
+    })
+    // const localStorageObj = localStorage;
+    // const localStorageKeys = Object.keys(localStorageObj);
+
+    // for(let i =0; i < localStorageKeys.length; i++) {
+    //     const key = localStorageKeys[i];
+    //     const userDetails = localStorageObj(key);
+    //     const userDetailsObj = JSON.parse(userDetails);
+    //     // showOnScreen(userDetailsObj);
+    // }
+})
 
 function showOnScreen(obj){ //CE- child element , PE- parent element.
     
